@@ -4,8 +4,8 @@
  */
 package wordjumble;
 
-// Import Scanner to make scanning for user input possible.
-import java.util.Scanner;
+// Being used to get user input without a Scanner
+import javax.swing.*;
 
 /**
  *
@@ -17,19 +17,9 @@ public class WordJumble {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Create scanner to scan the user's input
-        Scanner scan = new Scanner(System.in);
-        
-        // Instruction to tell the user to enter a word
-        System.out.println("Please enter a word");
-        
-        // Variable String letters to hold the user's input
-        // Use the Scanner scan to get the user's input
-        // Convert the word to all uppercase letters for consistant case
-        String letters = scan.nextLine().toUpperCase();
-        
-        // Line break so there is whitespace between scrambled words and the user's input
-        System.out.println("");
+        // String letters is used to hold the user's input
+        // Convert the word to all lowercase letters for consistant case, although not required
+        String letters = JOptionPane.showInputDialog("Please enter a word").toLowerCase();
         
         // Call the recursive method possibleWords()
         possibleWords(letters, ""); 
@@ -46,11 +36,13 @@ public class WordJumble {
         String origWord = word;
         String origJumbledLetters = jumbLet;
         if (word.length() == 1) {
+            // Print scrambled word
             System.out.println(jumbLet + word);
         } else {
             for (pos = 0; pos < origWord.length(); pos++) {
+                // Get the remaining letters
                 remainingLetters = origWord.substring(0, pos) + origWord.substring(pos + 1, origWord.length());
-                // Recursive call to possibleWords()
+                // Recursive call
                 possibleWords(remainingLetters, origJumbledLetters + origWord.charAt(pos));
             }
         }
